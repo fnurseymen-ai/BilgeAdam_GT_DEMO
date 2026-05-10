@@ -30,6 +30,13 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-devtools-v123</artifactId>
+      <version>${selenium.version}</version>
+      <scope>test</scope>
+    </dependency>
+
     <!-- Mobile -->
     <dependency>
       <groupId>io.appium</groupId>

@@ -15,6 +15,7 @@ public class ParaBankBusinessSteps {
   private String generatedUsername;
   private final String generatedPassword = "Training123!";
 
+  @Given("Parabank ana sayfasini actim")
   @Given("I open ParaBank home page")
   public void openParaBankHomePage() {
     homePage.open(FrameworkConfig.getRequired("web.business.baseUrl"));

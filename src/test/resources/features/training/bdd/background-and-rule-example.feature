@@ -9,6 +9,7 @@ Feature: Background and Rule educational examples
 
     Scenario: Dropdown concept validation
       When I select a value from dropdown
+      And I click on the submit button
       Then the selected dropdown value should be visible
 
     Scenario: Iframe concept validation

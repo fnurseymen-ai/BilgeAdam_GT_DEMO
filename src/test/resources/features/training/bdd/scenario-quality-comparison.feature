@@ -28,3 +28,46 @@ Feature: Scenario quality comparison for trainers
       | username       | password       |
       | invalid-user-1 | invalid-pass-1 |
       | invalid-user-2 | invalid-pass-2 |
+
+
+
+#  UYGULAMA ZAMANI
+
+
+# Bu senaryo doğru şekilde terar yazılacak
+Scenario: Login
+  Given click login button
+  And wait 2 seconds
+  And type username
+  And type password
+  Then homepage appears
+
+
+
+  Scenario: Successul login
+    Given kullanici login sayfasinda
+    When kullanici gecerli bir username ve password ile login olur
+    Then kullanici anasayfayi gormelidir
+
+
+# Aşağıdaki 2 senaryo yerine Scenario Outline kullanılacak
+Scenario: invalid user 1
+  Given I am on ParaBank login page
+  When I login with username "user1" and password "pass1"
+  Then I should see an authentication error message
+
+Scenario: invalid user 2
+  Given I am on ParaBank login page
+  When I login with username "user2" and password "pass2"
+  Then I should see an authentication error message
+
+Scenario Outline: Invalid login scenarios
+  Given I am on ParaBank login page
+  And I change language to Turkish
+  When I login with username "<username>" and password "<password>"
+  Then I should see an authentication "<hata-mesaji>" error message
+
+  Examples:
+    | username | password | hata-mesaji |
+    | user1    | pass1    | gecersiz kullanici |
+    | user2    | pass2    | hatali sifre |
