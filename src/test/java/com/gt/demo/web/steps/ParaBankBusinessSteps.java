@@ -7,9 +7,12 @@ import com.gt.demo.web.pages.business.ParaBankRegisterPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
 public class ParaBankBusinessSteps {
+  private static final Logger LOG = LoggerFactory.getLogger(ParaBankBusinessSteps.class);
   private final ParaBankHomePage homePage = new ParaBankHomePage(WebDriverContext.get());
   private final ParaBankRegisterPage registerPage = new ParaBankRegisterPage(WebDriverContext.get());
   private String generatedUsername;
@@ -51,6 +54,7 @@ public class ParaBankBusinessSteps {
   @When("I complete business registration with unique user")
   public void completeBusinessRegistrationWithUniqueUser() {
     generatedUsername = "trainer_" + System.currentTimeMillis();
+    LOG.info("Generated ParaBank username: {}", generatedUsername);
     registerPage.fillRegistrationForm(generatedUsername, generatedPassword);
   }
 

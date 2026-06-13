@@ -6,6 +6,6 @@ public class ApiKarateTest {
 
   @Karate.Test
   Karate runApiFeatures() {
-    return Karate.run("classpath:features/api").tags("~@wip").outputCucumberJson(true);
+    return Karate.run("file:src/test/resources/features/api").tags("~@wip").outputCucumberJson(true);
   }
 }
