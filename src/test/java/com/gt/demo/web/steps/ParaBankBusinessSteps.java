@@ -13,7 +13,8 @@ public class ParaBankBusinessSteps {
   private final ParaBankHomePage homePage = new ParaBankHomePage(WebDriverContext.get());
   private final ParaBankRegisterPage registerPage = new ParaBankRegisterPage(WebDriverContext.get());
   private String generatedUsername;
-  private final String generatedPassword = "Training123!";
+  private String generatedPassword;
+  private static final String DEFAULT_REGISTER_PASSWORD = "Training123!";
 
   @Given("Parabank ana sayfasini actim")
   @Given("I open ParaBank home page")
@@ -21,7 +22,7 @@ public class ParaBankBusinessSteps {
     homePage.open(FrameworkConfig.getRequired("web.business.baseUrl"));
   }
 
-  @When("I login with {string} username and {string} password")
+  @When("I login with valid business credentials")
   public void loginWithValidBusinessCredentials(String username, String password) {
     homePage.login(username, password);
   }
@@ -44,6 +45,7 @@ public class ParaBankBusinessSteps {
   }
 
   @Given("I open ParaBank registration page")
+  @Given("Parabank kayıt sayfasını açtım")
   public void openParaBankRegistrationPage() {
     registerPage.open(FrameworkConfig.getRequired("web.business.baseUrl"));
   }
@@ -51,7 +53,20 @@ public class ParaBankBusinessSteps {
   @When("I complete business registration with unique user")
   public void completeBusinessRegistrationWithUniqueUser() {
     generatedUsername = "trainer_" + System.currentTimeMillis();
+    generatedPassword = DEFAULT_REGISTER_PASSWORD;
     registerPage.fillRegistrationForm(generatedUsername, generatedPassword);
+  }
+
+  @When("I register with an existing username")
+  @When("Ayni kullanıcı adı ile kayıt olmaya çalışıyorum")
+  public void registerWithExistingUsername() {
+    generatedUsername = "trainer_dup_" + System.currentTimeMillis();
+    generatedPassword = DEFAULT_REGISTER_PASSWORD;
+    registerPage.fillRegistrationForm(generatedUsername, generatedPassword);
+    registerPage.submitRegistration();
+    registerPage.open(FrameworkConfig.getRequired("web.business.baseUrl"));
+    registerPage.fillRegistrationForm(generatedUsername, generatedPassword);
+    registerPage.submitRegistration();
   }
 
   @Then("I should see registration form filled with my generated username")
@@ -60,5 +75,18 @@ public class ParaBankBusinessSteps {
         registerPage.enteredUsername(),
         generatedUsername,
         "Expected registration form to keep the entered username.");
+  }
+
+  @Then("I should see a duplicate username registration error message {string}")
+  public void shouldSeeADuplicateUsernameRegistrationErrorMessage(String expectedMessage) {
+    Assert.assertEquals(
+        registerPage.duplicateUsernameMessage(),
+        expectedMessage,
+        "Expected ParaBank duplicate registration message did not match.");
+  }
+
+  @Then("kullanıcı mevcut hata mesajını görmeliyim")
+  public void shouldSeeDuplicateUsernameRegistrationErrorInTurkish() {
+    shouldSeeADuplicateUsernameRegistrationErrorMessage("kullanıcı mevcut");
   }
 }

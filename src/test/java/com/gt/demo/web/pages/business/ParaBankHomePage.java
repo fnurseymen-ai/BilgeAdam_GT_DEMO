@@ -1,20 +1,16 @@
 package com.gt.demo.web.pages.business;
 
 import com.gt.demo.web.base.BaseWebPage;
-import com.gt.demo.web.locators.JsonLocatorRepository;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class ParaBankHomePage extends BaseWebPage {
-  private static final JsonLocatorRepository LOCATORS =
-      JsonLocatorRepository.fromResource("locators/web/parabank-locators.json");
-
-  private static final By USERNAME = LOCATORS.by("home", "username");
-  private static final By PASSWORD = LOCATORS.by("home", "password");
-  private static final By LOGIN_BUTTON = LOCATORS.by("home", "loginButton");
-  private static final By REGISTER_LINK = LOCATORS.by("home", "registerLink");
-  private static final By LOGIN_ERROR = LOCATORS.by("home", "loginError");
-  private static final By LOGOUT_LINK = LOCATORS.by("home", "logoutLink");
+  private static final By USERNAME = By.name("username");
+  private static final By PASSWORD = By.name("password");
+  private static final By LOGIN_BUTTON = By.cssSelector("input.button[value='Log In']");
+  private static final By REGISTER_LINK = By.cssSelector("a[href='register.htm']");
+  private static final By LOGIN_ERROR = By.cssSelector("#leftPanel .error, .error");
+  private static final By LOGOUT_LINK = By.cssSelector("a[href='logout.htm']");
 
   public ParaBankHomePage(WebDriver driver) {
     super(driver);

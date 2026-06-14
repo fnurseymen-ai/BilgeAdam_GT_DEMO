@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
       "json:target/cucumber/web/cucumber.json"
     },
     // Targets versioned smoke web scenarios by default; training-specific tags are optional.
-    tags = "@web and @smoke and not @wip")
+    tags = "@ftmnr")
 public class WebCucumberTest extends AbstractTestNGCucumberTests {
 
   // TestNG her Cucumber scenario'yu ayrı bir test gibi çalıştırır.
