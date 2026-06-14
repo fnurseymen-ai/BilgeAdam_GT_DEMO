@@ -37,7 +37,7 @@ Scenario: Token ile booking sorgula
     When method post
     Then status 200
     * def bookingId = response.bookingid
-    * print 'Created bookingId:', bookingId
+    * print 'Created bookingIdd:', bookingId
 
     Given path 'booking', bookingId
     And header Cookie = 'token=' + token
