@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
  * birlikte çalışır.
  */
 @CucumberOptions(
-    features = "classpath:features/web/",
+    features = "file:src/test/resources/features/web/",
     glue = {"com.gt.demo.web"},
     plugin = {
       "pretty",
